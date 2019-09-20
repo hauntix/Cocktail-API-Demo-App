@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DRINK_CATEGORIES} from '../DrinkCategories';
 
 @Component({
   selector: 'app-tab2',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+  drinkCategories = DRINK_CATEGORIES;
 
   constructor() {}
 
