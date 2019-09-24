@@ -1,1 +1,8 @@
 
+$eggshell: #dbd9db;
+$grey: #747572;
+
+ion-tab-button {
+  --color: $grey;
+  --color-selected: #dbd9db;
+}

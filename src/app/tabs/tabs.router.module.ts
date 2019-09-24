@@ -24,12 +24,31 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+          },
+          {
+            path: 'drinks/:category',
+            children: [
+              {
+                path: 'drink-details/:id',
+                loadChildren: () =>
+                  import('../drink-details/drink-details.module').then(m => m.DrinkDetailsPageModule)
+              },
+            {
+              path: '',
+              loadChildren: () =>
+                  import('../drinks/drinks.module').then(m => m.DrinksPageModule)
+            }]
           }
         ]
       },
       {
         path: 'tab3',
         children: [
+          {
+            path: 'drink-details/:id',
+            loadChildren: () =>
+                import('../drink-details/drink-details.module').then(m => m.DrinkDetailsPageModule)
+          },
           {
             path: '',
             loadChildren: () =>
@@ -40,6 +59,11 @@ const routes: Routes = [
       {
         path: 'tab4',
         children: [
+          {
+            path: 'drink-details/:id',
+            loadChildren: () =>
+              import('../drink-details/drink-details.module').then(m => m.DrinkDetailsPageModule)
+          },
           {
             path: '',
             loadChildren: () =>

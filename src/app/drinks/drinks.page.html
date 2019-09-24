@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="'tabs/tab2'"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{category.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-list *ngIf="drinksByCategory">
+        <ion-item
+            *ngFor="let drink of drinksByCategory.drinks"
+            [routerLink]="'drink-details/' + drink.idDrink" routerDirection="forward">
+          <ion-label>{{drink.strDrink}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
