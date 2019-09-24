@@ -1,3 +1,11 @@
+
+$tan: #ffdbb5;
+$orange: #e0a458;
+$green: #419d78;
+$blue: #5b6191;
+$purple: #9b21d3;
+
+
 h1, h2 {
   padding: .5em 0 .2em 0;
 }
@@ -10,4 +18,19 @@ ion-card-header {
 
 .horizontally-center-button button {
   margin: auto;
+}
+/*
+
+.toolbar {
+  --background: #63ccca;
+  background-color: #63ccca;
+  color: #5b6191;
+}
+*/
+
+
+
+
+ion-button {
+  --background: #63ccca;
 }

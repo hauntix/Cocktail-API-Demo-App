@@ -1,1 +1,58 @@
+.horizontally-center {
+  text-align: center;
+}
 
+
+input[type=search]{
+
+  margin: 1.5em 0 0 0;
+  background-position: .1em 0;
+  border: .1em solid #86888f;
+  padding: 9px 2em 9px 2em;
+  text-align: center;
+  min-width: 10em;
+  width: fit-content;
+
+  -webkit-border-radius: 10em;
+  -moz-border-radius: 10em;
+  border-radius: 10em;
+}
+
+#searchBtn {
+  background: #ededed url("https://ionicons.com/ionicons/svg/md-search.svg") no-repeat center;
+  background-size: 2.5em;
+  background-position: .1em 0;
+  padding: 9px 2em 9px 2em;
+  border: .1em solid #86888f;
+  -webkit-border-radius: 10em;
+  -moz-border-radius: 10em;
+  border-radius: 10em;
+}
+
+input[type=search]:focus {
+  outline: none;
+  border-color: #10dc60;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+  -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+  box-shadow: 0 0 5px rgba(109,207,246,.5);
+}
+
+input::-webkit-search-decoration{
+  display: none;
+}
+
+ion-card {
+  height: fit-content;
+}
+
+.back-button {
+  border-radius: 7px;
+  border: .01em solid #86888f;
+  padding: .3em;
+  float: right;
+}
+
+$colors: (
+  purple: #9b21d3
+)

@@ -1,74 +1,78 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="toolbar">
     <ion-title>
-      Welcome to drink search!
+      Jay's Mixology Tome
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card class="welcome-card" *ngIf="randomCocktail">
-      <ion-card-header>
-        <ion-card-title>Random drink:<br> {{randomCocktail.drinks[0].strDrink}}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <div >
-          <img src='{{randomCocktail.drinks[0].strDrinkThumb}}'>
+  <ion-card class="welcome-card" *ngIf="randomCocktail">
+    <ion-card-header>
+      <ion-card-title>Random drink:<br> {{randomCocktail.drinks[0].strDrink}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div>
+        <img src='{{randomCocktail.drinks[0].strDrinkThumb}}'>
 
-          <h2>Ingredients</h2>
-          <ul *ngIf="randomCocktail">
-            <li *ngIf="randomCocktail.drinks[0].strIngredient1">
-              <span>{{randomCocktail.drinks[0].strIngredient1}}</span> {{randomCocktail.drinks[0].strMeasure1}}
-            </li>
-            <li *ngIf="randomCocktail.drinks[0].strIngredient2">
-              <span>{{randomCocktail.drinks[0].strIngredient2}}</span> {{randomCocktail.drinks[0].strMeasure2}}
-            </li>
-            <li *ngIf="randomCocktail.drinks[0].strIngredient3">
-              <span>{{randomCocktail.drinks[0].strIngredient3}}</span> {{randomCocktail.drinks[0].strMeasure3}}
-            </li>
-            <li *ngIf="randomCocktail.drinks[0].strIngredient4">
-              <span>{{randomCocktail.drinks[0].strIngredient4}}</span> {{randomCocktail.drinks[0].strMeasure4}}
-            </li>
-            <li *ngIf="randomCocktail.drinks[0].strIngredient5">
-              <span>{{randomCocktail.drinks[0].strIngredient5}}</span> {{randomCocktail.drinks[0].strMeasure5}}
-            </li>
-            <li *ngIf="randomCocktail.drinks[0].strIngredient6">
-              <span>{{randomCocktail.drinks[0].strIngredient6}}</span> {{randomCocktail.drinks[0].strMeasure6}}
-            </li>
-            <li *ngIf="randomCocktail.drinks[0].strIngredient7">
-              <span>{{randomCocktail.drinks[0].strIngredient7}}</span> {{randomCocktail.drinks[0].strMeasure7}}
-            </li>
-            <li *ngIf="randomCocktail.drinks[0].strIngredient8">
-              <span>{{randomCocktail.drinks[0].strIngredient8}}</span> {{randomCocktail.drinks[0].strMeasure8}}
-            </li>
-            <li *ngIf="randomCocktail.drinks[0].strIngredient9">
-              <span>{{randomCocktail.drinks[0].strIngredient9}}</span> {{randomCocktail.drinks[0].strMeasure9}}
-            </li>
-            <li *ngIf="randomCocktail.drinks[0].strIngredient10">
-              <span>{{randomCocktail.drinks[0].strIngredient10}}</span> {{randomCocktail.drinks[0].strMeasure10}}
-            </li>
-            <li *ngIf="randomCocktail.drinks[0].strIngredient11">
-              <span>{{randomCocktail.drinks[0].strIngredient11}}</span> {{randomCocktail.drinks[0].strMeasure11}}
-            </li>
-            <li *ngIf="randomCocktail.drinks[0].strIngredient12">
-              <span>{{randomCocktail.drinks[0].strIngredient12}}</span> {{randomCocktail.drinks[0].strMeasure12}}
-            </li>
-            <li *ngIf="randomCocktail.drinks[0].strIngredient13">
-              <span>{{randomCocktail.drinks[0].strIngredient13}}</span> {{randomCocktail.drinks[0].strMeasure13}}
-            </li>
-            <li *ngIf="randomCocktail.drinks[0].strIngredient14">
-              <span>{{randomCocktail.drinks[0].strIngredient14}}</span> {{randomCocktail.drinks[0].strMeasure14}}
-            </li>
-            <li *ngIf="randomCocktail.drinks[0].strIngredient15">
-              <span>{{randomCocktail.drinks[0].strIngredient15}}</span> {{randomCocktail.drinks[0].strMeasure15}}
-            </li>
-          </ul>
-          <h1>Instructions:</h1>
-          <p>{{randomCocktail.drinks[0].strInstructions}}</p>
-        </div>
-      </ion-card-content>
-      <div class="horizontally-center-button">
-      <button>new random drink</button>
+        <h2>Ingredients</h2>
+        <ul *ngIf="randomCocktail">
+          <li *ngIf="randomCocktail.drinks[0].strIngredient1">
+            <span>{{randomCocktail.drinks[0].strIngredient1}}</span> {{randomCocktail.drinks[0].strMeasure1}}
+          </li>
+          <li *ngIf="randomCocktail.drinks[0].strIngredient2">
+            <span>{{randomCocktail.drinks[0].strIngredient2}}</span> {{randomCocktail.drinks[0].strMeasure2}}
+          </li>
+          <li *ngIf="randomCocktail.drinks[0].strIngredient3">
+            <span>{{randomCocktail.drinks[0].strIngredient3}}</span> {{randomCocktail.drinks[0].strMeasure3}}
+          </li>
+          <li *ngIf="randomCocktail.drinks[0].strIngredient4">
+            <span>{{randomCocktail.drinks[0].strIngredient4}}</span> {{randomCocktail.drinks[0].strMeasure4}}
+          </li>
+          <li *ngIf="randomCocktail.drinks[0].strIngredient5">
+            <span>{{randomCocktail.drinks[0].strIngredient5}}</span> {{randomCocktail.drinks[0].strMeasure5}}
+          </li>
+          <li *ngIf="randomCocktail.drinks[0].strIngredient6">
+            <span>{{randomCocktail.drinks[0].strIngredient6}}</span> {{randomCocktail.drinks[0].strMeasure6}}
+          </li>
+          <li *ngIf="randomCocktail.drinks[0].strIngredient7">
+            <span>{{randomCocktail.drinks[0].strIngredient7}}</span> {{randomCocktail.drinks[0].strMeasure7}}
+          </li>
+          <li *ngIf="randomCocktail.drinks[0].strIngredient8">
+            <span>{{randomCocktail.drinks[0].strIngredient8}}</span> {{randomCocktail.drinks[0].strMeasure8}}
+          </li>
+          <li *ngIf="randomCocktail.drinks[0].strIngredient9">
+            <span>{{randomCocktail.drinks[0].strIngredient9}}</span> {{randomCocktail.drinks[0].strMeasure9}}
+          </li>
+          <li *ngIf="randomCocktail.drinks[0].strIngredient10">
+            <span>{{randomCocktail.drinks[0].strIngredient10}}</span> {{randomCocktail.drinks[0].strMeasure10}}
+          </li>
+          <li *ngIf="randomCocktail.drinks[0].strIngredient11">
+            <span>{{randomCocktail.drinks[0].strIngredient11}}</span> {{randomCocktail.drinks[0].strMeasure11}}
+          </li>
+          <li *ngIf="randomCocktail.drinks[0].strIngredient12">
+            <span>{{randomCocktail.drinks[0].strIngredient12}}</span> {{randomCocktail.drinks[0].strMeasure12}}
+          </li>
+          <li *ngIf="randomCocktail.drinks[0].strIngredient13">
+            <span>{{randomCocktail.drinks[0].strIngredient13}}</span> {{randomCocktail.drinks[0].strMeasure13}}
+          </li>
+          <li *ngIf="randomCocktail.drinks[0].strIngredient14">
+            <span>{{randomCocktail.drinks[0].strIngredient14}}</span> {{randomCocktail.drinks[0].strMeasure14}}
+          </li>
+          <li *ngIf="randomCocktail.drinks[0].strIngredient15">
+            <span>{{randomCocktail.drinks[0].strIngredient15}}</span> {{randomCocktail.drinks[0].strMeasure15}}
+          </li>
+        </ul>
+        <h1>Instructions:</h1>
+        <p>{{randomCocktail.drinks[0].strInstructions}}</p>
       </div>
-    </ion-card>
+    </ion-card-content>
+    <div class="horizontally-center-button">
+      <ion-button (click)="getRandomCocktail()">new drink</ion-button>
+      <ion-button (click)="favoriteDrink(randomCocktail)">
+        <ion-icon *ngIf="!randomCocktail.drinks[0].isFavorite" icon="star-outline"></ion-icon>
+        <ion-icon *ngIf="randomCocktail.drinks[0].isFavorite" icon="star"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-card>
 </ion-content>

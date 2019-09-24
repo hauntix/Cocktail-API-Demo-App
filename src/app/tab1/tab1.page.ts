@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Cocktails} from '../Cocktails';
-import {CocktailsService} from '../cocktails.service';
+import { Component, OnInit } from '@angular/core';
+import { Cocktails } from '../Cocktails';
+import { CocktailsService } from '../cocktails.service';
+import { FavoriteDrinksService } from '../favorite-drinks.service';
 
 @Component({
   selector: 'app-tab1',
@@ -9,8 +10,9 @@ import {CocktailsService} from '../cocktails.service';
 })
 export class Tab1Page implements OnInit {
   randomCocktail: Cocktails;
+  cocktail: Cocktails;
 
-  constructor(private cocktailService: CocktailsService) {
+  constructor(private cocktailService: CocktailsService, private favoriteDrinksService: FavoriteDrinksService) {
 
   }
 
@@ -25,5 +27,9 @@ export class Tab1Page implements OnInit {
         });
   }
 
-
+  favoriteDrink(drink: Cocktails) {
+    console.log('try to store ' + drink.drinks[0]);
+    drink.drinks[0].isFavorite = true;
+    this.favoriteDrinksService.addFavoriteDrink(drink);
+  }
 }

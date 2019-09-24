@@ -24,3 +24,29 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+ion-card {
+  --background: #ffdbb5!important;
+}
+
+ion-content {
+  --background: #e0a458;
+}
+
+$darkblue: #5b6191;
+$teal: #63ccca;
+$orange: #e15554;
+$peachScarlet: #ed4085;
+$eggshell: #dbd9db;
+$grey: #585956;
+
+
+ion-tab-bar, ion-toolbar {
+  --background: $orange;
+  background-color: $orange;
+  color: $grey;
+}
+
+
+// soft scarlet
+// peach scarlet
