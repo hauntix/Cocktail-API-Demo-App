@@ -1,9 +1,17 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button  [defaultHref]="'./'"></ion-back-button>
+      <ion-back-button  [defaultHref]=""></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="drink">{{drink.drinks[0].strDrink}}</ion-title>
+    <ion-title *ngIf="drink">{{drink.drinks[0].strDrink}}
+      <ion-icon
+          (click)="toggleFavorite(drink)" *ngIf="isFavorite(drink)"
+          icon="star"></ion-icon>
+      <ion-icon
+          (click)="toggleFavorite(drink)" *ngIf="!isFavorite(drink)"
+          icon="star-outline"></ion-icon>
+    </ion-title>
+
   </ion-toolbar>
 </ion-header>
 

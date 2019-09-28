@@ -10,7 +10,7 @@ import { FavoriteDrinksService } from '../favorite-drinks.service';
 })
 export class Tab1Page implements OnInit {
   randomCocktail: Cocktails;
-  cocktail: Cocktails;
+  // cocktail: Cocktails;
 
   constructor(private cocktailService: CocktailsService, private favoriteDrinksService: FavoriteDrinksService) {
 
@@ -28,8 +28,26 @@ export class Tab1Page implements OnInit {
   }
 
   favoriteDrink(drink: Cocktails) {
-    console.log('try to store ' + drink.drinks[0]);
-    drink.drinks[0].isFavorite = true;
-    this.favoriteDrinksService.addFavoriteDrink(drink);
+
+    // set drink to favorite if it's never been favorite before
+    if (drink.drinks[0].isFavorite === undefined) {
+      drink.drinks[0].isFavorite = true;
+      this.favoriteDrinksService.addFavoriteDrink(drink);
+
+      // remove drink from favorites and set to false
+    } else if (drink.drinks[0].isFavorite) {
+      this.randomCocktail.drinks[0].isFavorite = false;
+      this.favoriteDrinksService.removeFavoriteDrink(drink.drinks[0].idDrink);
+
+      // set drink back to favorite (drink was fav then unfav before)
+    } else if (!drink.drinks[0].isFavorite) {
+      this.randomCocktail.drinks[0].isFavorite = true;
+      this.favoriteDrinksService.addFavoriteDrink(drink);
+    }
+  }
+
+  isFavoriteDrink(): boolean {
+    const id = this.randomCocktail.drinks[0].idDrink;
+    return this.favoriteDrinksService.isFavoriteDrink(id);
   }
 }

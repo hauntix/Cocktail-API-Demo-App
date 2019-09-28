@@ -12,7 +12,7 @@
         <ion-label
             [routerLink]="'drink-details/' + drink.idDrink">{{drink.strDrink}}</ion-label>
         <ion-icon
-            (click)="removeFavorite(drink.idDrink)"
+            (click)="removeFavorite(drink)"
             *ngIf="drink.isFavorite" icon="star"></ion-icon>
         <ion-icon
             (click)="drink.isFavorite = !drink.isFavorite"

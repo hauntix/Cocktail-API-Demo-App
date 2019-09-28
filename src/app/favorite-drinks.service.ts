@@ -22,12 +22,22 @@ export class FavoriteDrinksService {
     return this.favoriteDrinks;
   }
 
+  isFavoriteDrink(drinkID: string): boolean {
+    if (this.favoriteDrinks !== undefined) {
+      for (const drink of this.favoriteDrinks.drinks) {
+        if (drink.idDrink === drinkID) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
   addFavoriteDrink(cocktail: Cocktails) {
     if (this.favoriteDrinks === undefined || this.favoriteDrinks.drinks === undefined) {
       this.favoriteDrinks = cocktail;
-      console.log('maybe stored: ' + this.favoriteDrinks.drinks);
     } else {
-      console.log('else: ' + this.favoriteDrinks);
       this.favoriteDrinks.drinks.push(cocktail.drinks[0]);
     }
     this.storeFavoriteDrinks();
