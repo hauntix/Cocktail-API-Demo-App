@@ -30,16 +30,19 @@ ion-card-header {
 
 
 
-
+/*
 ion-button {
   --background: #63ccca;
 }
-
+*/
 #favBtn {
-  margin-top: -3.5em;
+ /* margin-top: -3.5em;*/
+  margin-bottom: -1em;
   float: right;
 }
 
-#favBtn ion-icon {
-
+ion-icon {
+ float: right;
+  font-size: xx-large;
+  fill: $orange;
 }

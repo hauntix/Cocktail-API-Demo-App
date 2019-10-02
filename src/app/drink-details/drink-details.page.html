@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button  [defaultHref]=""></ion-back-button>
     </ion-buttons>
@@ -15,8 +15,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card>
+<ion-content color="secondary">
+  <ion-card color="light">
     <ion-card-content>
     <div *ngIf="drink">
     <ion-img src='{{drink.drinks[0].strDrinkThumb}}'></ion-img>

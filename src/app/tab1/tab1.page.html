@@ -1,20 +1,26 @@
 <ion-header>
-  <ion-toolbar class="toolbar">
+  <ion-toolbar class="toolbar" color="primary">
     <ion-title>
       Jay's Mixology Tome
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card class="welcome-card" *ngIf="randomCocktail" >
+<ion-content color="secondary">
+
+  <ion-card class="welcome-card" *ngIf="randomCocktail" color="light">
     <ion-card-header>
+        <ion-icon
+            (click)="favoriteDrink(randomCocktail)"
+            *ngIf="!isFavoriteDrink()"
+            icon="star-outline"></ion-icon>
+        <ion-icon
+            (click)="favoriteDrink(randomCocktail)"
+            *ngIf="isFavoriteDrink()"
+            icon="star"></ion-icon>
+
       <h1>Random drink:</h1>
       <ion-card-title> {{randomCocktail.drinks[0].strDrink}}
-        <ion-button id="favBtn" (click)="favoriteDrink(randomCocktail)" >
-          <ion-icon *ngIf="(randomCocktail.drinks === undefined) || !randomCocktail.drinks[0].isFavorite" icon="star-outline"></ion-icon>
-          <ion-icon *ngIf="randomCocktail.drinks[0].isFavorite"  icon="star"></ion-icon>
-        </ion-button>
       </ion-card-title>
 
     </ion-card-header>
