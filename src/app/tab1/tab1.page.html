@@ -11,14 +11,13 @@
   <ion-card class="welcome-card" *ngIf="randomCocktail" color="light">
     <ion-card-header>
         <ion-icon
-            (click)="favoriteDrink(randomCocktail)"
+            (click)="favoriteDrink(randomCocktail.drinks[0])"
             *ngIf="!isFavoriteDrink()"
             icon="star-outline"></ion-icon>
         <ion-icon
-            (click)="favoriteDrink(randomCocktail)"
+            (click)="favoriteDrink(randomCocktail.drinks[0])"
             *ngIf="isFavoriteDrink()"
             icon="star"></ion-icon>
-
       <h1>Random drink:</h1>
       <ion-card-title> {{randomCocktail.drinks[0].strDrink}}
       </ion-card-title>

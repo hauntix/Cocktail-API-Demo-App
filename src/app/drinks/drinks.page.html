@@ -12,9 +12,18 @@
     <ion-card-content>
       <ion-list *ngIf="drinksByCategory">
         <ion-item
-            *ngFor="let drink of drinksByCategory.drinks"
-            [routerLink]="'drink-details/' + drink.idDrink" routerDirection="forward">
-          <ion-label>{{drink.strDrink}}</ion-label>
+            *ngFor="let drink of drinksByCategory.drinks">
+          <ion-label
+              [routerLink]="'drink-details/' + drink.idDrink"
+              routerDirection="forward">{{drink.strDrink}}</ion-label>
+          <ion-icon
+              (click)="toggleFavoriteDrink(drink)"
+              *ngIf="!isFavoriteDrink(drink)"
+              icon="star-outline"></ion-icon>
+          <ion-icon
+              (click)="toggleFavoriteDrink(drink)"
+              *ngIf="isFavoriteDrink(drink)"
+              icon="star"></ion-icon>
         </ion-item>
       </ion-list>
     </ion-card-content>

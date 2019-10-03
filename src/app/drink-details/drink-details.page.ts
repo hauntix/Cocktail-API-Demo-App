@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Cocktails} from '../Cocktails';
+import {Cocktails, Drink} from '../Cocktails';
 import {CocktailsService} from '../cocktails.service';
 import {ActivatedRoute} from '@angular/router';
 import {FavoriteDrinksService} from '../favorite-drinks.service';
@@ -10,7 +10,7 @@ import {FavoriteDrinksService} from '../favorite-drinks.service';
   styleUrls: ['./drink-details.page.scss'],
 })
 export class DrinkDetailsPage implements OnInit {
-  drink: Cocktails;
+  drink: Drink;
 
   constructor(
       private cocktailService: CocktailsService,
@@ -26,18 +26,33 @@ export class DrinkDetailsPage implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
 
     this.cocktailService.getCocktailByID(id)
-        .subscribe((cocktails: Cocktails) => this.drink = cocktails);
+        .subscribe((cocktails: Cocktails) => {
+          this.drink = cocktails.drinks[0];
+          this.drink.isFavorite = this.isFavorite();
+        });
   }
 
-  toggleFavorite(drink: Cocktails) {
-    // TODO complete this dumb shit
-    drink.drinks[0].isFavorite = !drink.drinks[0].isFavorite;
-    if (drink.drinks[0].isFavorite) {
-      this.favoriteDrinksService.removeFavoriteDrink(drink.drinks[0].idDrink);
+  toggleFavoriteDrink() {
+
+    // set drink to favorite if it's never been favorite before
+    if (this.drink.isFavorite === undefined) {
+      this.drink.isFavorite = true;
+      this.favoriteDrinksService.addFavoriteDrink(this.drink);
+
+      // remove drink from favorites and set to false
+    } else if (this.drink.isFavorite) {
+      this.drink.isFavorite = false;
+      this.favoriteDrinksService.removeFavoriteDrink(this.drink.idDrink);
+
+      // set drink back to favorite (drink was fav then unfav before)
+    } else if (!this.drink.isFavorite) {
+      this.drink.isFavorite = true;
+      this.favoriteDrinksService.addFavoriteDrink(this.drink);
     }
+
   }
 
-  isFavorite(drink: Cocktails): boolean {
-    return this.favoriteDrinksService.isFavoriteDrink(drink.drinks[0].idDrink);
+  isFavorite(): boolean {
+    return this.favoriteDrinksService.isFavoriteDrink(this.drink.idDrink);
   }
 }

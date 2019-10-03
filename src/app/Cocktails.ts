@@ -52,8 +52,12 @@ export interface Drink {
     dateModified: string;
 }
 
-export interface Cocktails {
-    drinks: Drink[];
+export class Cocktails {
+    drinks: Drink[] = [];
+
+    public addDrink(drink: Drink) {
+        this.drinks.push(drink);
+    }
 }
 
 

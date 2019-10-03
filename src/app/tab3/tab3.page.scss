@@ -4,22 +4,21 @@
 
 
 input[type=search]{
-
+  background: #ededed url("https://ionicons.com/ionicons/svg/md-search.svg") no-repeat 12.5em center;
+  background-size: 2.0em;
   margin: 1.5em 0 0 0;
-  background-position: .1em 0;
   border: .1em solid #86888f;
   padding: 9px 2em 9px 2em;
   text-align: center;
   min-width: 10em;
   width: fit-content;
-
+  color: black;
   -webkit-border-radius: 10em;
   -moz-border-radius: 10em;
   border-radius: 10em;
 }
 
 #searchBtn {
-  background: #ededed url("https://ionicons.com/ionicons/svg/md-search.svg") no-repeat center;
   background-size: 2.5em;
   background-position: .1em 0;
   padding: 9px 2em 9px 2em;
@@ -53,6 +52,9 @@ ion-card {
   float: right;
 }
 
-$colors: (
-  purple: #9b21d3
-)
+$orange: #e0a458;
+
+ion-icon {
+  fill: $orange;
+}
+

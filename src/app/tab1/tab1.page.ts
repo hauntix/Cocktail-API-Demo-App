@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cocktails } from '../Cocktails';
+import {Cocktails, Drink} from '../Cocktails';
 import { CocktailsService } from '../cocktails.service';
 import { FavoriteDrinksService } from '../favorite-drinks.service';
 
@@ -27,10 +27,10 @@ export class Tab1Page implements OnInit {
         });
   }
 
-  favoriteDrink(drink: Cocktails) {
+  favoriteDrink(drink: Drink) {
 
     // set drink to favorite if it's never been favorite before
-    if(this.randomCocktail.drinks[0].isFavorite === undefined) {
+    if (this.randomCocktail.drinks[0].isFavorite === undefined) {
       this.randomCocktail.drinks[0].isFavorite = true;
       this.favoriteDrinksService.addFavoriteDrink(drink);
       this.cocktails = this.favoriteDrinksService.getFavoriteDrinks();
@@ -38,7 +38,7 @@ export class Tab1Page implements OnInit {
       // remove drink from favorites and set to false
     } else if (this.randomCocktail.drinks[0].isFavorite) {
       this.randomCocktail.drinks[0].isFavorite = false;
-      this.favoriteDrinksService.removeFavoriteDrink(drink.drinks[0].idDrink);
+      this.favoriteDrinksService.removeFavoriteDrink(drink.idDrink);
       this.cocktails = this.favoriteDrinksService.getFavoriteDrinks();
 
       // set drink back to favorite (drink was fav then unfav before)
