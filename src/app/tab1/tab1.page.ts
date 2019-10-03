@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cocktails } from '../Cocktails';
+import {Cocktails, Drink} from '../Cocktails';
 import { CocktailsService } from '../cocktails.service';
 import { FavoriteDrinksService } from '../favorite-drinks.service';
 
@@ -10,7 +10,7 @@ import { FavoriteDrinksService } from '../favorite-drinks.service';
 })
 export class Tab1Page implements OnInit {
   randomCocktail: Cocktails;
-  cocktail: Cocktails;
+  cocktails: Cocktails;
 
   constructor(private cocktailService: CocktailsService, private favoriteDrinksService: FavoriteDrinksService) {
 
@@ -27,9 +27,31 @@ export class Tab1Page implements OnInit {
         });
   }
 
-  favoriteDrink(drink: Cocktails) {
-    console.log('try to store ' + drink.drinks[0]);
-    drink.drinks[0].isFavorite = true;
-    this.favoriteDrinksService.addFavoriteDrink(drink);
+  favoriteDrink(drink: Drink) {
+
+    // set drink to favorite if it's never been favorite before
+    if (this.randomCocktail.drinks[0].isFavorite === undefined) {
+      this.randomCocktail.drinks[0].isFavorite = true;
+      this.favoriteDrinksService.addFavoriteDrink(drink);
+      this.cocktails = this.favoriteDrinksService.getFavoriteDrinks();
+
+      // remove drink from favorites and set to false
+    } else if (this.randomCocktail.drinks[0].isFavorite) {
+      this.randomCocktail.drinks[0].isFavorite = false;
+      this.favoriteDrinksService.removeFavoriteDrink(drink.idDrink);
+      this.cocktails = this.favoriteDrinksService.getFavoriteDrinks();
+
+      // set drink back to favorite (drink was fav then unfav before)
+    } else if (!this.randomCocktail.drinks[0].isFavorite) {
+      this.randomCocktail.drinks[0].isFavorite = true;
+      this.favoriteDrinksService.addFavoriteDrink(drink);
+      this.cocktails = this.favoriteDrinksService.getFavoriteDrinks();
+    }
+  }
+
+  isFavoriteDrink(): boolean {
+    const id = this.randomCocktail.drinks[0].idDrink;
+
+    return this.favoriteDrinksService.isFavoriteDrink(id);
   }
 }

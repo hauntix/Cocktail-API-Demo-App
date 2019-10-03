@@ -1,19 +1,31 @@
 <ion-header>
-  <ion-toolbar class="toolbar">
+  <ion-toolbar class="toolbar" color="primary">
     <ion-title>
       Jay's Mixology Tome
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card class="welcome-card" *ngIf="randomCocktail">
+<ion-content color="secondary">
+
+  <ion-card class="welcome-card" *ngIf="randomCocktail" color="light">
     <ion-card-header>
-      <ion-card-title>Random drink:<br> {{randomCocktail.drinks[0].strDrink}}</ion-card-title>
+        <ion-icon
+            (click)="favoriteDrink(randomCocktail.drinks[0])"
+            *ngIf="!isFavoriteDrink()"
+            icon="star-outline"></ion-icon>
+        <ion-icon
+            (click)="favoriteDrink(randomCocktail.drinks[0])"
+            *ngIf="isFavoriteDrink()"
+            icon="star"></ion-icon>
+      <h1>Random drink:</h1>
+      <ion-card-title> {{randomCocktail.drinks[0].strDrink}}
+      </ion-card-title>
+
     </ion-card-header>
     <ion-card-content>
       <div>
-        <img src='{{randomCocktail.drinks[0].strDrinkThumb}}'>
+        <img src='{{randomCocktail.drinks[0].strDrinkThumb}}' alt="{{randomCocktail.drinks[0].strDrink}} img">
 
         <h2>Ingredients</h2>
         <ul *ngIf="randomCocktail">
@@ -69,10 +81,6 @@
     </ion-card-content>
     <div class="horizontally-center-button">
       <ion-button (click)="getRandomCocktail()">new drink</ion-button>
-      <ion-button (click)="favoriteDrink(randomCocktail)">
-        <ion-icon *ngIf="!randomCocktail.drinks[0].isFavorite" icon="star-outline"></ion-icon>
-        <ion-icon *ngIf="randomCocktail.drinks[0].isFavorite" icon="star"></ion-icon>
-      </ion-button>
     </div>
   </ion-card>
 </ion-content>

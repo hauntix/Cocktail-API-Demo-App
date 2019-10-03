@@ -1,18 +1,18 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Favorite Drinks</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card>
+<ion-content color="secondary">
+  <ion-card color="light">
     <ion-list *ngIf="favoriteDrinks">
       <ion-item
           *ngFor="let drink of favoriteDrinks.drinks">
         <ion-label
             [routerLink]="'drink-details/' + drink.idDrink">{{drink.strDrink}}</ion-label>
         <ion-icon
-            (click)="removeFavorite(drink.idDrink)"
+            (click)="removeFavorite(drink)"
             *ngIf="drink.isFavorite" icon="star"></ion-icon>
         <ion-icon
             (click)="drink.isFavorite = !drink.isFavorite"

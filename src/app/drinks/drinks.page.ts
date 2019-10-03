@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CocktailsService } from '../cocktails.service';
-import { Cocktails } from '../Cocktails';
+import {Cocktails, Drink} from '../Cocktails';
 import { Category } from '../DrinkCategories';
+import {FavoriteDrinksService} from '../favorite-drinks.service';
 
 @Component({
   selector: 'app-drinks',
@@ -15,7 +16,8 @@ export class DrinksPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private cocktailService: CocktailsService
+    private cocktailService: CocktailsService,
+    private favoriteDrinksService: FavoriteDrinksService
   ) { }
 
   ngOnInit() {
@@ -64,4 +66,26 @@ export class DrinksPage implements OnInit {
         .subscribe((cocktails: Cocktails) => this.drinksByCategory = cocktails);
   }
 
+  isFavoriteDrink(drink: Drink): boolean {
+    return this.favoriteDrinksService.isFavoriteDrink(drink.idDrink);
+  }
+
+  toggleFavoriteDrink(drink: Drink) {
+    // set drink to favorite if it's never been favorite before
+    if (drink.isFavorite === undefined) {
+      drink.isFavorite = true;
+      this.favoriteDrinksService.addFavoriteDrink(drink);
+
+      // remove drink from favorites and set to false
+    } else if (drink.isFavorite) {
+      drink.isFavorite = false;
+      this.favoriteDrinksService.removeFavoriteDrink(drink.idDrink);
+
+      // set drink back to favorite (drink was fav then unfav before)
+    } else if (!drink.isFavorite) {
+      drink.isFavorite = true;
+      this.favoriteDrinksService.addFavoriteDrink(drink);
+    }
+
+  }
 }

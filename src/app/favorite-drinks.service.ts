@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Cocktails } from './Cocktails';
+import {Cocktails, Drink} from './Cocktails';
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +22,25 @@ export class FavoriteDrinksService {
     return this.favoriteDrinks;
   }
 
-  addFavoriteDrink(cocktail: Cocktails) {
+  isFavoriteDrink(drinkID: string): boolean {
+    if (this.favoriteDrinks !== undefined) {
+      for (const drink of this.favoriteDrinks.drinks) {
+        if (drink.idDrink === drinkID) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  addFavoriteDrink(drink: Drink) {
     if (this.favoriteDrinks === undefined || this.favoriteDrinks.drinks === undefined) {
-      this.favoriteDrinks = cocktail;
-      console.log('maybe stored: ' + this.favoriteDrinks.drinks);
+      const tmp = new Cocktails();
+      tmp.addDrink(drink);
+      this.favoriteDrinks = tmp;
     } else {
-      console.log('else: ' + this.favoriteDrinks);
-      this.favoriteDrinks.drinks.push(cocktail.drinks[0]);
+      this.favoriteDrinks.drinks.push(drink);
     }
     this.storeFavoriteDrinks();
   }

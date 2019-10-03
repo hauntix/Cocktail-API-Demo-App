@@ -1,23 +1,26 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      <!-- placeholder -->
-    </ion-title>
+  <ion-toolbar color="primary">
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="secondary">
   <div class="horizontally-center">
     <input type="search" placeholder="Search" id="search" (keyup)="getSearchResults()">
     <!-- <input type="button" id="searchBtn"> -->
 
   </div>
-  <ion-card id="searchContainer" *ngIf="searchResults">
+  <ion-card color="light" id="searchContainer" *ngIf="searchResults">
     <ion-list>
-      <ion-item *ngFor="let drink of searchResults.drinks"
-                (click)="drinkDetails = drink"
-                [routerLink]="'drink-details/' + drink.idDrink" routerDirection="forward">
-        <ion-label>{{drink.strDrink}}</ion-label>
+      <ion-item *ngFor="let drink of searchResults.drinks">
+        <ion-label
+            [routerLink]="'drink-details/' + drink.idDrink" routerDirection="forward">
+          {{drink.strDrink}}</ion-label>
+        <ion-icon
+            (click)="toggleFavoriteDrink(drink)" *ngIf="isFavorite(drink)"
+            icon="star"></ion-icon>
+        <ion-icon
+            (click)="toggleFavoriteDrink(drink)" *ngIf="!isFavorite(drink)"
+            icon="star-outline"></ion-icon>
       </ion-item>
       <ion-item id="searchResult">
         <ion-label>No search results.</ion-label>

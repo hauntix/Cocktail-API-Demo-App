@@ -1,67 +1,75 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button  [defaultHref]="'./'"></ion-back-button>
+      <ion-back-button  [defaultHref]=""></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="drink">{{drink.drinks[0].strDrink}}</ion-title>
+    <ion-title *ngIf="drink">{{drink.strDrink}}
+      <ion-icon
+          (click)="toggleFavoriteDrink()" *ngIf="isFavorite()"
+          icon="star"></ion-icon>
+      <ion-icon
+          (click)="toggleFavoriteDrink()" *ngIf="!isFavorite()"
+          icon="star-outline"></ion-icon>
+    </ion-title>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card>
+<ion-content color="secondary">
+  <ion-card color="light">
     <ion-card-content>
     <div *ngIf="drink">
-    <ion-img src='{{drink.drinks[0].strDrinkThumb}}'></ion-img>
+    <ion-img src='{{drink.strDrinkThumb}}'></ion-img>
     <h2>Ingredients</h2>
     <ul >
-      <li *ngIf="drink.drinks[0].strIngredient1">
-        <span>{{drink.drinks[0].strIngredient1}}</span> {{drink.drinks[0].strMeasure1}}
+      <li *ngIf="drink.strIngredient1">
+        <span>{{drink.strIngredient1}}</span> {{drink.strMeasure1}}
       </li>
-      <li *ngIf="drink.drinks[0].strIngredient2">
-        <span>{{drink.drinks[0].strIngredient2}}</span> {{drink.drinks[0].strMeasure2}}
+      <li *ngIf="drink.strIngredient2">
+        <span>{{drink.strIngredient2}}</span> {{drink.strMeasure2}}
       </li>
-      <li *ngIf="drink.drinks[0].strIngredient3">
-        <span>{{drink.drinks[0].strIngredient3}}</span> {{drink.drinks[0].strMeasure3}}
+      <li *ngIf="drink.strIngredient3">
+        <span>{{drink.strIngredient3}}</span> {{drink.strMeasure3}}
       </li>
-      <li *ngIf="drink.drinks[0].strIngredient4">
-        <span>{{drink.drinks[0].strIngredient4}}</span> {{drink.drinks[0].strMeasure4}}
+      <li *ngIf="drink.strIngredient4">
+        <span>{{drink.strIngredient4}}</span> {{drink.strMeasure4}}
       </li>
-      <li *ngIf="drink.drinks[0].strIngredient5">
-        <span>{{drink.drinks[0].strIngredient5}}</span> {{drink.drinks[0].strMeasure5}}
+      <li *ngIf="drink.strIngredient5">
+        <span>{{drink.strIngredient5}}</span> {{drink.strMeasure5}}
       </li>
-      <li *ngIf="drink.drinks[0].strIngredient6">
-        <span>{{drink.drinks[0].strIngredient6}}</span> {{drink.drinks[0].strMeasure6}}
+      <li *ngIf="drink.strIngredient6">
+        <span>{{drink.strIngredient6}}</span> {{drink.strMeasure6}}
       </li>
-      <li *ngIf="drink.drinks[0].strIngredient7">
-        <span>{{drink.drinks[0].strIngredient7}}</span> {{drink.drinks[0].strMeasure7}}
+      <li *ngIf="drink.strIngredient7">
+        <span>{{drink.strIngredient7}}</span> {{drink.strMeasure7}}
       </li>
-      <li *ngIf="drink.drinks[0].strIngredient8">
-        <span>{{drink.drinks[0].strIngredient8}}</span> {{drink.drinks[0].strMeasure8}}
+      <li *ngIf="drink.strIngredient8">
+        <span>{{drink.strIngredient8}}</span> {{drink.strMeasure8}}
       </li>
-      <li *ngIf="drink.drinks[0].strIngredient9">
-        <span>{{drink.drinks[0].strIngredient9}}</span> {{drink.drinks[0].strMeasure9}}
+      <li *ngIf="drink.strIngredient9">
+        <span>{{drink.strIngredient9}}</span> {{drink.strMeasure9}}
       </li>
-      <li *ngIf="drink.drinks[0].strIngredient10">
-        <span>{{drink.drinks[0].strIngredient10}}</span> {{drink.drinks[0].strMeasure10}}
+      <li *ngIf="drink.strIngredient10">
+        <span>{{drink.strIngredient10}}</span> {{drink.strMeasure10}}
       </li>
-      <li *ngIf="drink.drinks[0].strIngredient11">
-        <span>{{drink.drinks[0].strIngredient11}}</span> {{drink.drinks[0].strMeasure11}}
+      <li *ngIf="drink.strIngredient11">
+        <span>{{drink.strIngredient11}}</span> {{drink.strMeasure11}}
       </li>
-      <li *ngIf="drink.drinks[0].strIngredient12">
-        <span>{{drink.drinks[0].strIngredient12}}</span> {{drink.drinks[0].strMeasure12}}
+      <li *ngIf="drink.strIngredient12">
+        <span>{{drink.strIngredient12}}</span> {{drink.strMeasure12}}
       </li>
-      <li *ngIf="drink.drinks[0].strIngredient13">
-        <span>{{drink.drinks[0].strIngredient13}}</span> {{drink.drinks[0].strMeasure13}}
+      <li *ngIf="drink.strIngredient13">
+        <span>{{drink.strIngredient13}}</span> {{drink.strMeasure13}}
       </li>
-      <li *ngIf="drink.drinks[0].strIngredient14">
-        <span>{{drink.drinks[0].strIngredient14}}</span> {{drink.drinks[0].strMeasure14}}
+      <li *ngIf="drink.strIngredient14">
+        <span>{{drink.strIngredient14}}</span> {{drink.strMeasure14}}
       </li>
-      <li *ngIf="drink.drinks[0].strIngredient15">
-        <span>{{drink.drinks[0].strIngredient15}}</span> {{drink.drinks[0].strMeasure15}}
+      <li *ngIf="drink.strIngredient15">
+        <span>{{drink.strIngredient15}}</span> {{drink.strMeasure15}}
       </li>
     </ul>
     <h1>Instructions:</h1>
-    <p>{{drink.drinks[0].strInstructions}}</p>
+    <p>{{drink.strInstructions}}</p>
   </div>
     </ion-card-content>
   </ion-card>

@@ -1,6 +1,17 @@
+
+$tan: #ffdbb5;
+$orange: #e0a458;
+$green: #419d78;
+$blue: #5b6191;
+$purple: #9b21d3;
+
 .show-back-button.sc-ion-back-button-md-h, .can-go-back.sc-ion-back-button-md-h > ion-header.sc-ion-back-button-md, .can-go-back > ion-header .sc-ion-back-button-md-h {
   display: inline-block;
 }
 ion-title {
   display: inline-block;
+}
+
+ion-icon {
+  fill: $orange;
 }
