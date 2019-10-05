@@ -20,7 +20,7 @@ export class Tab1Page implements OnInit {
     this.getRandomCocktail();
   }
 
-  private getRandomCocktail() {
+  getRandomCocktail() {
     this.cocktailService.getRandomCocktail()
         .subscribe((result: Cocktails) => {
           this.randomCocktail = result;
