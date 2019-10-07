@@ -12,6 +12,7 @@ import {FavoriteDrinksService} from '../favorite-drinks.service';
 export class Tab3Page {
   searchResults: Cocktails;
   drinkDetails: Drink;
+  searchType = 'name';
 
   constructor(
     private cocktailService: CocktailsService,
@@ -25,20 +26,45 @@ export class Tab3Page {
     const searchTerm = $('#search').val() as string;
 
     if (searchTerm.length !== 0) {
-      this.cocktailService.getCocktailsByName(searchTerm)
-        .subscribe((result: Cocktails) => {
-          this.searchResults = result;
-          searchDiv.show();
+      if (this.searchType === 'name') {
+        this.cocktailService.getCocktailsByName(searchTerm)
+          .subscribe((result: Cocktails) => {
+            this.searchResults = result;
+            searchDiv.show();
 
-          if (this.searchResults.drinks === null) {
-            noResultTag.show();
-          } else {
-
-            if (this.searchResults.drinks.length > 0) {
-              noResultTag.hide();
+            if (this.searchResults === null) {
+              noResultTag.show();
             }
-          }
-        });
+
+            if (this.searchResults.drinks === null) {
+              noResultTag.show();
+            } else {
+
+              if (this.searchResults.drinks.length > 0) {
+                noResultTag.hide();
+              }
+            }
+          });
+      }
+
+      if (this.searchType === 'ingredients') {
+        this.cocktailService.getCocktailsByIngredient(searchTerm)
+          .subscribe((result: Cocktails) => {
+            console.log('fucking a');
+            console.log(result);
+            this.searchResults = result;
+            searchDiv.show();
+
+            if (this.searchResults.drinks === null) {
+              noResultTag.show();
+            } else {
+
+              if (this.searchResults.drinks.length > 0) {
+                noResultTag.hide();
+              }
+            }
+          });
+      }
     } else if (searchTerm.length === 0) {
       searchDiv.hide();
     } else {
@@ -52,6 +78,7 @@ export class Tab3Page {
     return this.favoriteDrinksService.isFavoriteDrink(drink.idDrink);
   }
 
+  // noinspection DuplicatedCode
   toggleFavoriteDrink(drink: Drink) {
     // set drink to favorite if it's never been favorite before
     if (drink.isFavorite === undefined) {
@@ -63,11 +90,24 @@ export class Tab3Page {
       drink.isFavorite = false;
       this.favoriteDrinksService.removeFavoriteDrink(drink.idDrink);
 
-      // set drink back to favorite (drink was fav then unfav before)
+      // set drink back to favorite (drink was fav then un fav before)
     } else if (!drink.isFavorite) {
       drink.isFavorite = true;
       this.favoriteDrinksService.addFavoriteDrink(drink);
     }
 
+  }
+
+  toggleSearchType(id: number) {
+    if (id === 0) {
+      $('#searchType0 >  span').text('✓');
+      $('#searchType1 >  span').text('');
+      this.searchType = 'name';
+    }
+    if (id === 1) {
+      $('#searchType0 >  span').text('');
+      $('#searchType1 >  span').text('✓');
+      this.searchType = 'ingredients';
+    }
   }
 }

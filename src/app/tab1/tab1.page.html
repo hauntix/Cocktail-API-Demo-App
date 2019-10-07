@@ -8,7 +8,7 @@
 
 <ion-content color="secondary">
 
-  <ion-card class="welcome-card" *ngIf="randomCocktail" color="light">
+  <ion-card class="welcome-card" *ngIf="randomCocktail; else loading" color="light">
     <ion-card-header>
         <ion-icon
             (click)="favoriteDrink(randomCocktail.drinks[0])"
@@ -83,4 +83,13 @@
       <ion-button (click)="getRandomCocktail()">new drink</ion-button>
     </div>
   </ion-card>
+
+
+  <ng-template #loading>
+    <ion-card color="light" class="center-box">
+      <ion-card-content>
+        <ion-img class="center" src="assets/Spinner-1.5s-200px.gif" alt="loading"></ion-img>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
 </ion-content>

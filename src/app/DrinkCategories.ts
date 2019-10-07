@@ -3,7 +3,7 @@ export const DRINK_CATEGORIES: Category[] = [
     { name: 'Cocktail\'s', value: 'Cocktail'},
     { name: 'Milk / Float / Shake\'s', value: 'Milk_Float_Shake'},
     { name: 'Other / Unknown', value: 'Other_Unknown'},
-    { name: 'Cocoa Drink\'s', value: 'Cocoa'},
+/*    { name: 'Cocoa Drink\'s', value: 'Cocoa'}, */
     { name: 'Shot\'s', value: 'Shot'},
     { name: 'Coffee / Tea\'s', value: 'Coffee_Tea'},
     { name: 'Homemade Liqueur\'s', value: 'Homemade_Liqueur'},

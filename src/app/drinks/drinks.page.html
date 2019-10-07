@@ -8,11 +8,12 @@
 </ion-header>
 
 <ion-content color="secondary">
-  <ion-card color="light">
+  <ion-card color="light" *ngIf="drinksByCategory; else loading">
     <ion-card-content>
-      <ion-list *ngIf="drinksByCategory">
+      <ion-list>
         <ion-item
-            *ngFor="let drink of drinksByCategory.drinks">
+            *ngFor="let drink of drinksByCategory.drinks"
+        >
           <ion-label
               [routerLink]="'drink-details/' + drink.idDrink"
               routerDirection="forward">{{drink.strDrink}}</ion-label>
@@ -28,4 +29,11 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
+  <ng-template #loading>
+    <ion-card color="light" class="center-box">
+      <ion-card-content>
+        <ion-img class="center" src="assets/Spinner-1.5s-200px.gif" alt="loading"></ion-img>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
 </ion-content>

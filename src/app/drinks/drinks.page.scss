@@ -15,3 +15,20 @@ ion-title {
 ion-icon {
   fill: $orange;
 }
+
+ion-spinner {
+  left: 45%;
+  padding-top: 12em;
+  padding-bottom: 12em;
+}
+.center-box {
+  width: 50%;
+  height: 14em;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}

@@ -14,7 +14,9 @@ export class FavoriteDrinksService {
   }
 
   retrieveFavoriteDrinks() {
-    this.favoriteDrinks = JSON.parse(window.localStorage['favorite-drinks']);
+    if (window.localStorage['favorite-drinks'] !== undefined) {
+      this.favoriteDrinks = JSON.parse(window.localStorage['favorite-drinks']);
+    }
   }
 
   getFavoriteDrinks(): Cocktails {
