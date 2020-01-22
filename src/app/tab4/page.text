@@ -1,0 +1,240 @@
+import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.json.JSONObject;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTShd;
+
+import java.io.*;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class LogEnhancer {
+    private String fileName;
+    private String docFile;
+    private HashMap<String, String> featureAndColors;
+    private HashMap<String, String> featureValues = new HashMap<>();
+
+    LogEnhancer (String fileName, HashMap<String, String> featureAndColors) {
+        this.fileName = fileName;
+        this.docFile = fileName.substring(0, fileName.length() - 4) + ".docx";
+        this.featureAndColors = featureAndColors;
+    }
+
+    public void create() throws IOException {
+        BufferedReader fileReader = new BufferedReader(new FileReader("src/main/resources/" + fileName));
+        String currentLine;
+        int lineNumber = 1;
+
+        // Create doc
+        XWPFDocument document = new XWPFDocument();
+
+        // Loop until End of File
+        while ( (currentLine = fileReader.readLine()) != null) {
+            // Create a paragraph per line to make it easier to read
+            // doc instead of rewriting the log into one big paragraph
+            XWPFParagraph paragraph = document.createParagraph();
+            paragraph.setAlignment(ParagraphAlignment.LEFT);
+
+            // Assuming log beings with payload on line 1
+            if(lineNumber == 1) {
+                // Copy the values in the payload for each feature to use when looking for what to highlight
+                extractFeatureValues(currentLine);
+                highlightFeaturesAndValues(currentLine, paragraph);
+            }
+            else if (lineContainsFeature(currentLine)){
+                //System.out.println(lineNumber);
+                highlightFeaturesAndValues(currentLine, paragraph);
+            }
+            else {
+                // Copy the line to the word doc with no highlighting
+                XWPFRun currentRun = paragraph.createRun();
+                currentRun.setText(currentLine);
+            }
+            lineNumber++;
+        }
+
+        fileReader.close();
+        // Write the word doc
+        FileOutputStream out = new FileOutputStream("output/" + docFile);
+        document.write(out);
+        document.close();
+        out.close();
+
+    }
+
+    private void extractFeatureValues(String line) {
+        if (line.substring(0, 7).contains("Payload")){
+            // Parse string as Json to make it easy to get values
+            JSONObject jsonObject = new JSONObject(line.substring(8));
+
+            // Loop thru each feature in the feature set given and grab their values from payload
+            for (String feature: featureAndColors.keySet()) {
+                featureValues.put(feature, jsonObject.get(feature).toString());
+            }
+        }
+    }
+
+    private void highlightFeaturesAndValues(String line, XWPFParagraph paragraph) {
+        XWPFRun currentRun = paragraph.createRun();
+        currentRun.setText(line);
+
+        int run = 0;
+        // find the index of each feature (also sorted by index)
+       ArrayList<FeatureDetail> featureDetailList = findFeatureIndices(line);
+
+        // Goes through line highlighting the feature value pairs in order of occurrence
+        for (FeatureDetail feature: featureDetailList){
+            run += highlightFeaturesAndValues(feature.getFeature(), paragraph, run);
+        }
+    }
+
+    // Recursive call to make sure we highlight all the stuff in one go
+    private int highlightFeaturesAndValues(String feature, XWPFParagraph paragraph, int runIndex) {
+        XWPFRun currentRun = paragraph.getRuns().get(runIndex);
+        String currentRunText = currentRun.text();
+
+        int featureLength = feature.length();
+        int featureIndex = currentRunText.indexOf(feature);
+        int addedRuns = 0;
+        paragraph.removeRun(runIndex);
+
+        // set anything before the feature
+        if(featureIndex > 0) {
+            XWPFRun before = paragraph.insertNewRun(runIndex);
+            before.setText(currentRunText.substring(0, featureIndex));
+            // restore style of current text
+            addedRuns++;
+        }
+
+
+        // Highlight the feature
+        XWPFRun featureRun = paragraph.insertNewRun(runIndex + addedRuns);
+        featureRun.setText(currentRunText.substring(featureIndex, featureIndex + featureLength));
+        //featureRun.setTextHighlightColor(featureAndColors.get(feature));
+        CTShd featureHighlight = featureRun.getCTR().addNewRPr().addNewShd();
+        featureHighlight.setFill(featureAndColors.get(feature));
+
+        int valueLength = featureValues.get(feature).length();
+        int valueIndex = currentRunText.indexOf(featureValues.get(feature));
+
+        if (valueIndex != -1) {
+            // create run for text in between feature and value
+            XWPFRun inBetween = paragraph.insertNewRun(runIndex + addedRuns + 1);
+            inBetween.setText(currentRunText.substring(featureIndex + featureLength, valueIndex));
+            addedRuns++;
+
+            //highlight value
+            XWPFRun valueRun = paragraph.insertNewRun(runIndex + addedRuns + 1);
+            valueRun.setText(currentRunText.substring(valueIndex, valueIndex  + valueLength));
+            CTShd valueHighlight = valueRun.getCTR().addNewRPr().addNewShd();
+            valueHighlight.setFill(featureAndColors.get(feature));
+            addedRuns++;
+
+            XWPFRun after = paragraph.insertNewRun(runIndex + addedRuns + 1);
+            after.setText(currentRunText.substring(valueIndex + valueLength));
+            addedRuns++;
+
+        }
+        else {
+            XWPFRun after = paragraph.insertNewRun(runIndex + addedRuns + 1);
+            after.setText(currentRunText.substring(featureIndex + featureLength));
+            addedRuns++;
+        }
+
+        return addedRuns;
+    }
+
+    private Boolean lineContainsFeature(String line) {
+        Boolean containsFeature = false;
+
+        for (String feature :
+                this.featureAndColors.keySet()) {
+            if (!containsFeature)
+                containsFeature = line.contains(feature);
+        }
+
+        return containsFeature;
+    }
+
+    // this is only if feature occurs once in the line for now
+    private ArrayList<FeatureDetail> findFeatureIndices(String line) {
+        ArrayList<FeatureDetail> featuresList = new ArrayList<>();
+
+        for (String feature: featureAndColors.keySet())
+            if (line.contains(feature)) {
+                int index = line.indexOf(feature);
+                featuresList.add(new FeatureDetail(feature, index));
+
+                int occurrences = countOccurrences(feature, line);
+                if (occurrences > 1) {
+                    for (int i = 1; i < occurrences; i++) {
+                        //      create a substring of the line starting from the last saved index + feature length
+                        //      so we can find the next index of the same feature
+                        int oldIndex = index;
+                        index = (line.substring(index + feature.length())).indexOf(feature);
+                        featuresList.add(new FeatureDetail(feature, (oldIndex + feature.length() + index)));
+                    }
+                }
+            }
+
+        //Sort featureDetails list by index
+        featuresList.sort(Comparator.comparingInt(FeatureDetail::getIndex));
+
+        return featuresList;
+    }
+
+    static int countOccurrences(String word, String string) {
+        int counter = 0;
+        // Create a regular expression of the given word
+        Pattern pattern = Pattern.compile(word);
+        // create a matcher to search for our regular expression pattern we made
+        Matcher matcher = pattern.matcher(string);
+
+        while (matcher.find()) {
+            counter++;
+        }
+        return counter;
+    }
+
+}
+
+class FeatureDetail implements Comparable<FeatureDetail> {
+    String feature;
+    int index;
+
+    FeatureDetail(String feature, int index) {
+        this.feature = feature;
+        this.index = index;
+    }
+
+    public String getFeature() {
+        return feature;
+    }
+
+    public void setFeature(String feature) {
+        this.feature = feature;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    @Override
+    public int compareTo(FeatureDetail featureDetail) {
+        return (Integer.compare(this.index, featureDetail.getIndex()));
+    }
+
+    @Override
+    public String toString() {
+        return "FeatureDetail{" +
+                "feature='" + feature + '\'' +
+                ", index=" + index +
+                '}';
+    }
+}
