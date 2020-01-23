@@ -4,3 +4,9 @@ $orange: #e0a458;
 ion-icon {
   fill: $orange;
 }
+.selectable {
+  -moz-user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
